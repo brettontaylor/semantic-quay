@@ -1,0 +1,362 @@
+{
+  "index": {
+    "catalog": "capital-markets-reference",
+    "version": "0.1.0",
+    "description": "An illustrative reference data model for a capital-markets data mesh: reference data (instruments, counterparties, currencies) plus transaction and position facts, modeled with end-to-end data classification.",
+    "classifications": [
+      "public",
+      "internal",
+      "confidential",
+      "restricted"
+    ],
+    "products": [
+      {
+        "id": "counterparty",
+        "title": "Counterparty",
+        "group": "reference",
+        "owner": "reference-data",
+        "descriptor": "catalog/counterparty.json"
+      },
+      {
+        "id": "currency",
+        "title": "Currency",
+        "group": "reference",
+        "owner": "reference-data",
+        "descriptor": "catalog/currency.json"
+      },
+      {
+        "id": "instrument",
+        "title": "Instrument",
+        "group": "reference",
+        "owner": "reference-data",
+        "descriptor": "catalog/instrument.json"
+      },
+      {
+        "id": "position",
+        "title": "Position",
+        "group": "position",
+        "owner": "trading-data",
+        "descriptor": "catalog/position.json"
+      },
+      {
+        "id": "trade",
+        "title": "Trade",
+        "group": "transaction",
+        "owner": "trading-data",
+        "descriptor": "catalog/trade.json"
+      }
+    ]
+  },
+  "products": {
+    "counterparty": {
+      "dataProduct": "counterparty",
+      "title": "Counterparty",
+      "version": "0.1.0",
+      "group": "reference",
+      "grain": "one row per legal counterparty",
+      "owner": "reference-data",
+      "source": {
+        "id": "reference_feed",
+        "kind": "csv",
+        "cadenceDays": 1
+      },
+      "classificationSummary": {
+        "internal": 2,
+        "public": 1,
+        "confidential": 2,
+        "restricted": 1
+      },
+      "schema": [
+        {
+          "name": "counterparty_id",
+          "type": "string",
+          "classification": "internal",
+          "primaryKey": true
+        },
+        {
+          "name": "lei",
+          "type": "string",
+          "classification": "public"
+        },
+        {
+          "name": "legal_name",
+          "type": "string",
+          "classification": "confidential"
+        },
+        {
+          "name": "country_code",
+          "type": "string",
+          "classification": "internal"
+        },
+        {
+          "name": "credit_rating",
+          "type": "string",
+          "classification": "confidential"
+        },
+        {
+          "name": "internal_risk_score",
+          "type": "int",
+          "classification": "restricted"
+        }
+      ],
+      "lineage": {
+        "bronze": "bronze_counterparty",
+        "silver": "silver_counterparty",
+        "gold": "GOLD.COUNTERPARTY",
+        "semantic": "cube:counterparty"
+      },
+      "metrics": []
+    },
+    "currency": {
+      "dataProduct": "currency",
+      "title": "Currency",
+      "version": "0.1.0",
+      "group": "reference",
+      "grain": "one row per ISO 4217 currency",
+      "owner": "reference-data",
+      "source": {
+        "id": "reference_feed",
+        "kind": "csv",
+        "cadenceDays": 1
+      },
+      "classificationSummary": {
+        "public": 3
+      },
+      "schema": [
+        {
+          "name": "currency_code",
+          "type": "string",
+          "classification": "public",
+          "primaryKey": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "classification": "public"
+        },
+        {
+          "name": "minor_units",
+          "type": "int",
+          "classification": "public"
+        }
+      ],
+      "lineage": {
+        "bronze": "bronze_currency",
+        "silver": "silver_currency",
+        "gold": "GOLD.CURRENCY",
+        "semantic": "cube:currency"
+      },
+      "metrics": []
+    },
+    "instrument": {
+      "dataProduct": "instrument",
+      "title": "Instrument",
+      "version": "0.1.0",
+      "group": "reference",
+      "grain": "one row per tradable instrument",
+      "owner": "reference-data",
+      "source": {
+        "id": "reference_feed",
+        "kind": "csv",
+        "cadenceDays": 1
+      },
+      "classificationSummary": {
+        "internal": 1,
+        "public": 5
+      },
+      "schema": [
+        {
+          "name": "instrument_id",
+          "type": "string",
+          "classification": "internal",
+          "primaryKey": true
+        },
+        {
+          "name": "isin",
+          "type": "string",
+          "classification": "public"
+        },
+        {
+          "name": "cusip",
+          "type": "string",
+          "classification": "public"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "classification": "public"
+        },
+        {
+          "name": "asset_class",
+          "type": "string",
+          "classification": "public"
+        },
+        {
+          "name": "currency_code",
+          "type": "string",
+          "classification": "public",
+          "references": "currency.currency_code"
+        }
+      ],
+      "lineage": {
+        "bronze": "bronze_instrument",
+        "silver": "silver_instrument",
+        "gold": "GOLD.INSTRUMENT",
+        "semantic": "cube:instrument"
+      },
+      "metrics": []
+    },
+    "position": {
+      "dataProduct": "position",
+      "title": "Position",
+      "version": "0.1.0",
+      "group": "position",
+      "grain": "one row per book / instrument / as-of date",
+      "owner": "trading-data",
+      "source": {
+        "id": "trades_feed",
+        "kind": "csv",
+        "cadenceDays": 1
+      },
+      "classificationSummary": {
+        "internal": 4,
+        "confidential": 2,
+        "public": 1
+      },
+      "schema": [
+        {
+          "name": "position_id",
+          "type": "string",
+          "classification": "internal",
+          "primaryKey": true
+        },
+        {
+          "name": "book_id",
+          "type": "string",
+          "classification": "internal"
+        },
+        {
+          "name": "instrument_id",
+          "type": "string",
+          "classification": "internal",
+          "references": "instrument.instrument_id"
+        },
+        {
+          "name": "as_of_date",
+          "type": "date",
+          "classification": "internal"
+        },
+        {
+          "name": "quantity",
+          "type": "decimal(18,4)",
+          "classification": "confidential"
+        },
+        {
+          "name": "market_value",
+          "type": "decimal(18,2)",
+          "classification": "confidential"
+        },
+        {
+          "name": "currency_code",
+          "type": "string",
+          "classification": "public",
+          "references": "currency.currency_code"
+        }
+      ],
+      "lineage": {
+        "bronze": "bronze_position",
+        "silver": "silver_position",
+        "gold": "GOLD.POSITION",
+        "semantic": "cube:position"
+      },
+      "metrics": [
+        "market_value_sum"
+      ]
+    },
+    "trade": {
+      "dataProduct": "trade",
+      "title": "Trade",
+      "version": "0.1.0",
+      "group": "transaction",
+      "grain": "one row per executed trade",
+      "owner": "trading-data",
+      "source": {
+        "id": "trades_feed",
+        "kind": "csv",
+        "cadenceDays": 1
+      },
+      "classificationSummary": {
+        "internal": 5,
+        "confidential": 3,
+        "public": 1,
+        "restricted": 1
+      },
+      "schema": [
+        {
+          "name": "trade_id",
+          "type": "string",
+          "classification": "internal",
+          "primaryKey": true
+        },
+        {
+          "name": "trade_date",
+          "type": "date",
+          "classification": "internal"
+        },
+        {
+          "name": "instrument_id",
+          "type": "string",
+          "classification": "internal",
+          "references": "instrument.instrument_id"
+        },
+        {
+          "name": "counterparty_id",
+          "type": "string",
+          "classification": "internal",
+          "references": "counterparty.counterparty_id"
+        },
+        {
+          "name": "side",
+          "type": "string",
+          "classification": "internal"
+        },
+        {
+          "name": "quantity",
+          "type": "decimal(18,4)",
+          "classification": "confidential"
+        },
+        {
+          "name": "price",
+          "type": "decimal(18,6)",
+          "classification": "confidential"
+        },
+        {
+          "name": "notional",
+          "type": "decimal(18,2)",
+          "classification": "confidential"
+        },
+        {
+          "name": "currency_code",
+          "type": "string",
+          "classification": "public",
+          "references": "currency.currency_code"
+        },
+        {
+          "name": "trader_id",
+          "type": "string",
+          "classification": "restricted"
+        }
+      ],
+      "lineage": {
+        "bronze": "bronze_trade",
+        "silver": "silver_trade",
+        "gold": "GOLD.TRADE",
+        "semantic": "cube:trade"
+      },
+      "metrics": [
+        "notional_sum",
+        "trade_count"
+      ]
+    }
+  }
+}

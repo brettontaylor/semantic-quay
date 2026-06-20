@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { listProducts, catalogIndex } from "./_reference";
+import { ClassificationBadge } from "@/components/ClassificationBadge";
 
 export const metadata: Metadata = {
   title: "Developers — Semantic Quay reference architecture",
@@ -8,6 +10,8 @@ export const metadata: Metadata = {
 };
 
 export default function Developers() {
+  const products = listProducts();
+
   return (
     <>
       {/* Hero */}
@@ -19,15 +23,74 @@ export default function Developers() {
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
             A generic, illustrative reference implementation: one governed
-            metadata spec drives the medallion pipelines, the published semantic
-            layer, and warehouse serving — with classification and lineage
-            enforced end to end. Synthetic data only. Free to read, run, and
-            adapt.
+            metadata contract drives the medallion pipelines, the published
+            semantic layer, and warehouse serving — with classification and
+            lineage enforced end to end. Synthetic data only. Free to read, run,
+            and adapt.
           </p>
-          <p className="mt-6 inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 font-mono text-xs text-muted">
-            <span className="h-1.5 w-1.5 rounded-full bg-brass" />
-            Public repository — publishing soon
-          </p>
+          <a
+            href="https://github.com/brettontaylor/data-mesh-reference"
+            className="mt-7 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition-colors hover:bg-ink-soft"
+          >
+            View the repository
+            <Arrow />
+          </a>
+        </div>
+      </section>
+
+      {/* Live data products — rendered from the reference's generated catalog */}
+      <section className="border-b border-line bg-paper-soft">
+        <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-24">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div className="max-w-2xl">
+              <p className="eyebrow">Data-product catalog</p>
+              <h2 className="font-display mt-4 text-3xl font-medium tracking-tight text-ink md:text-4xl">
+                {products.length} products, generated from the contract.
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-muted">
+                These cards render the reference's own machine-readable catalog —
+                the same descriptors a consumer would discover. Nothing here is
+                hand-written; it is generated from{" "}
+                <span className="font-mono text-sm text-ink">contracts/</span>.
+              </p>
+            </div>
+            <span className="font-mono text-xs text-muted">
+              {catalogIndex.catalog} · v{catalogIndex.version}
+            </span>
+          </div>
+
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {products.map((p) => (
+              <Link
+                key={p.dataProduct}
+                href={`/developers/${p.dataProduct}`}
+                className="group rounded-2xl border border-line bg-paper p-6 transition-colors hover:border-accent/40"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs uppercase tracking-wider text-accent">
+                    {p.group}
+                  </span>
+                  <span className="font-mono text-xs text-muted">
+                    {p.schema.length} fields
+                  </span>
+                </div>
+                <h3 className="font-display mt-3 text-xl font-medium tracking-tight text-ink">
+                  {p.title}
+                </h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted">{p.grain}</p>
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {Object.keys(p.classificationSummary)
+                    .sort()
+                    .map((c) => (
+                      <ClassificationBadge key={c} level={c as never} />
+                    ))}
+                </div>
+                <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-ink transition-colors group-hover:text-accent">
+                  Inspect <Arrow />
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -47,9 +110,7 @@ export default function Developers() {
                 <h3 className="font-display mt-3 text-lg font-medium tracking-tight text-ink">
                   {c.title}
                 </h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-muted">
-                  {c.body}
-                </p>
+                <p className="mt-2.5 text-sm leading-relaxed text-muted">{c.body}</p>
               </div>
             ))}
           </div>
@@ -70,7 +131,7 @@ export default function Developers() {
               Edit the contract and the downstream surfaces regenerate.
               Classification coverage, registry consistency, and propagation
               completeness are enforced as gates — a change that stops at the
-              spec is incomplete.
+              contract is incomplete.
             </p>
           </div>
           <div className="mt-12 flex flex-wrap items-center gap-3 font-mono text-sm">
@@ -79,16 +140,13 @@ export default function Developers() {
                 <span className="rounded-lg border border-line-bright bg-ink-soft px-3.5 py-2 text-paper">
                   {step}
                 </span>
-                {i < chain.length - 1 && (
-                  <span className="text-accent-bright">→</span>
-                )}
+                {i < chain.length - 1 && <span className="text-accent-bright">→</span>}
               </span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Back */}
       <section className="border-t border-line">
         <div className="mx-auto max-w-6xl px-6 py-16 md:px-10">
           <Link
@@ -96,15 +154,27 @@ export default function Developers() {
             className="inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors hover:text-accent"
           >
             <span className="rotate-180">
-              <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" aria-hidden="true">
-                <path d="M3 8h9M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <Arrow />
             </span>
             Back to Semantic Quay
           </Link>
         </div>
       </section>
     </>
+  );
+}
+
+function Arrow() {
+  return (
+    <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" aria-hidden="true">
+      <path
+        d="M3 8h9M9 4l4 4-4 4"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
 
