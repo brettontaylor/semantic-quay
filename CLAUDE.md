@@ -9,9 +9,9 @@ modernizing banking data infrastructure with AI. Orchestrated from the private
 ## Non-negotiables
 
 - **Anonymous, third person.** The principal is never named anywhere on the site.
-- **Zero IP.** Generic and illustrative only — no employer (Mizuho) or client
-  names, no real data, no proprietary BDM/PDM schemas. Illustrative domain is a
-  synthetic capital-markets dataset.
+- **Zero IP.** Generic and illustrative only — no employer or client names, no
+  real data, no proprietary BDM/PDM schemas. Illustrative domain is a synthetic
+  capital-markets dataset.
 
 ## Stack & conventions
 
@@ -26,6 +26,6 @@ modernizing banking data infrastructure with AI. Orchestrated from the private
 
 ## Deploy
 
-Railway, auto-deploy on push to `main` (DIWINE/WINEGRAPH pattern). Secrets in
+Railway, auto-deploy on push to `main`. Secrets in
 Railway Variables; `.env.example` is the committed template. Domain TBD — running
 on a Railway placeholder URL until registered.
