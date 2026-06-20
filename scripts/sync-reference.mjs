@@ -13,7 +13,12 @@ import { join, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const ref = process.env.DMREF_DIR || resolve(root, "..", "data-mesh-reference");
+const repo = process.env.DMREF_DIR || resolve(root, "..", "data-mesh-reference");
+// The engine (and its generated/ + examples/) live under packages/engine after the
+// monorepo conversion; fall back to repo root for older checkouts.
+const ref = existsSync(join(repo, "packages", "engine", "generated"))
+  ? join(repo, "packages", "engine")
+  : repo;
 const catalogDir = join(ref, "generated", "catalog");
 const outDir = join(root, "app", "developers", "_reference");
 
