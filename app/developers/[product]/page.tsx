@@ -137,10 +137,13 @@ export default async function ProductPage({
               <ul className="mt-5 space-y-2">
                 {p.metrics.map((m) => (
                   <li
-                    key={m}
+                    key={m.name}
                     className="rounded-lg border border-line px-4 py-2.5 font-mono text-sm text-ink"
                   >
-                    {m}
+                    {m.name}{" "}
+                    <span className="text-muted">
+                      = {m.agg}({m.field})
+                    </span>
                   </li>
                 ))}
               </ul>

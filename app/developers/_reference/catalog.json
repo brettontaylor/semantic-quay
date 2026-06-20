@@ -81,7 +81,8 @@
         {
           "name": "legal_name",
           "type": "string",
-          "classification": "confidential"
+          "classification": "confidential",
+          "pii": true
         },
         {
           "name": "country_code",
@@ -96,7 +97,8 @@
         {
           "name": "internal_risk_score",
           "type": "int",
-          "classification": "restricted"
+          "classification": "restricted",
+          "mnpi": true
         }
       ],
       "lineage": {
@@ -249,12 +251,14 @@
         {
           "name": "quantity",
           "type": "decimal(18,4)",
-          "classification": "confidential"
+          "classification": "confidential",
+          "mnpi": true
         },
         {
           "name": "market_value",
           "type": "decimal(18,2)",
-          "classification": "confidential"
+          "classification": "confidential",
+          "mnpi": true
         },
         {
           "name": "currency_code",
@@ -270,7 +274,12 @@
         "semantic": "cube:position"
       },
       "metrics": [
-        "market_value_sum"
+        {
+          "name": "market_value_sum",
+          "agg": "sum",
+          "field": "market_value",
+          "description": "Total mark-to-market exposure."
+        }
       ]
     },
     "trade": {
@@ -323,17 +332,20 @@
         {
           "name": "quantity",
           "type": "decimal(18,4)",
-          "classification": "confidential"
+          "classification": "confidential",
+          "mnpi": true
         },
         {
           "name": "price",
           "type": "decimal(18,6)",
-          "classification": "confidential"
+          "classification": "confidential",
+          "mnpi": true
         },
         {
           "name": "notional",
           "type": "decimal(18,2)",
-          "classification": "confidential"
+          "classification": "confidential",
+          "mnpi": true
         },
         {
           "name": "currency_code",
@@ -344,7 +356,8 @@
         {
           "name": "trader_id",
           "type": "string",
-          "classification": "restricted"
+          "classification": "restricted",
+          "pii": true
         }
       ],
       "lineage": {
@@ -354,8 +367,18 @@
         "semantic": "cube:trade"
       },
       "metrics": [
-        "notional_sum",
-        "trade_count"
+        {
+          "name": "notional_sum",
+          "agg": "sum",
+          "field": "notional",
+          "description": "Total notional traded."
+        },
+        {
+          "name": "trade_count",
+          "agg": "count",
+          "field": "trade_id",
+          "description": "Number of trades."
+        }
       ]
     }
   }

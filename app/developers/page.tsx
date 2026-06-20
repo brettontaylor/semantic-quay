@@ -38,6 +38,33 @@ export default function Developers() {
         </div>
       </section>
 
+      {/* Interactive demos */}
+      <section className="border-b border-line">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:px-10 md:py-20">
+          <p className="eyebrow">Explore</p>
+          <h2 className="font-display mt-4 text-3xl font-medium tracking-tight text-ink md:text-4xl">
+            Four ways in — all access-governed.
+          </h2>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {demos.map((d) => (
+              <Link
+                key={d.href}
+                href={d.href}
+                className="group rounded-2xl border border-line bg-paper p-6 transition-colors hover:border-accent/40"
+              >
+                <h3 className="font-display text-lg font-medium tracking-tight text-ink">
+                  {d.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{d.body}</p>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-ink transition-colors group-hover:text-accent">
+                  Open <Arrow />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Live data products — rendered from the reference's generated catalog */}
       <section className="border-b border-line bg-paper-soft">
         <div className="mx-auto max-w-6xl px-6 py-20 md:px-10 md:py-24">
@@ -212,3 +239,26 @@ const components = [
 ];
 
 const chain = ["BDM / PDM", "Contract", "Databricks", "Cube", "Snowflake"];
+
+const demos = [
+  {
+    href: "/developers/model",
+    title: "Data model",
+    body: "Navigate the ERD; watch attributes mask by role in real time.",
+  },
+  {
+    href: "/developers/api",
+    title: "API explorer",
+    body: "A live endpoint — responses filtered per attribute by clearance.",
+  },
+  {
+    href: "/developers/semantic",
+    title: "Semantic layer",
+    body: "Query governed metrics; MNPI/PII measures block without clearance.",
+  },
+  {
+    href: "/developers/access",
+    title: "Access control",
+    body: "The full role × attribute visibility matrix and the policy model.",
+  },
+];

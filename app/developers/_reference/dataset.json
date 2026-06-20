@@ -1,0 +1,275 @@
+{
+  "counterparty": [
+    {
+      "counterparty_id": "CP-001",
+      "lei": "7LTWFZYICNSX8D621K86",
+      "legal_name": "Meridian Capital Partners",
+      "country_code": "US",
+      "credit_rating": "A",
+      "internal_risk_score": "42"
+    },
+    {
+      "counterparty_id": "CP-002",
+      "lei": "549300LIGFW4PFY1HK29",
+      "legal_name": "Northwind Asset Mgmt",
+      "country_code": "GB",
+      "credit_rating": "AA",
+      "internal_risk_score": "18"
+    },
+    {
+      "counterparty_id": "CP-003",
+      "lei": "529900T8BM49AURSDO55",
+      "legal_name": "Helvetia Securities",
+      "country_code": "CH",
+      "credit_rating": "A",
+      "internal_risk_score": "55"
+    },
+    {
+      "counterparty_id": "CP-004",
+      "lei": "353800FWHQ8C5G5C9X63",
+      "legal_name": "Sakura Investments",
+      "country_code": "JP",
+      "credit_rating": "BBB",
+      "internal_risk_score": "71"
+    },
+    {
+      "counterparty_id": "CP-005",
+      "lei": "984500B1A2C3D4E5F6G7",
+      "legal_name": "Atlas Brokerage",
+      "country_code": "US",
+      "credit_rating": "AA",
+      "internal_risk_score": "23"
+    }
+  ],
+  "currency": [
+    {
+      "currency_code": "USD",
+      "name": "US Dollar",
+      "minor_units": "2"
+    },
+    {
+      "currency_code": "EUR",
+      "name": "Euro",
+      "minor_units": "2"
+    },
+    {
+      "currency_code": "GBP",
+      "name": "Pound Sterling",
+      "minor_units": "2"
+    },
+    {
+      "currency_code": "JPY",
+      "name": "Japanese Yen",
+      "minor_units": "0"
+    },
+    {
+      "currency_code": "CHF",
+      "name": "Swiss Franc",
+      "minor_units": "2"
+    }
+  ],
+  "instrument": [
+    {
+      "instrument_id": "INST-001",
+      "isin": "US0378331005",
+      "cusip": "037833100",
+      "name": "Apple Inc",
+      "asset_class": "EQUITY",
+      "currency_code": "USD"
+    },
+    {
+      "instrument_id": "INST-002",
+      "isin": "US5949181045",
+      "cusip": "594918104",
+      "name": "Microsoft Corp",
+      "asset_class": "EQUITY",
+      "currency_code": "USD"
+    },
+    {
+      "instrument_id": "INST-003",
+      "isin": "DE0007164600",
+      "cusip": "",
+      "name": "SAP SE",
+      "asset_class": "EQUITY",
+      "currency_code": "EUR"
+    },
+    {
+      "instrument_id": "INST-004",
+      "isin": "US912828YK00",
+      "cusip": "912828YK0",
+      "name": "US Treasury 1.5% 2030",
+      "asset_class": "BOND",
+      "currency_code": "USD"
+    },
+    {
+      "instrument_id": "INST-005",
+      "isin": "GB00B3X7QG63",
+      "cusip": "",
+      "name": "UK Gilt 4.25% 2032",
+      "asset_class": "BOND",
+      "currency_code": "GBP"
+    },
+    {
+      "instrument_id": "INST-006",
+      "isin": "JP3633400001",
+      "cusip": "",
+      "name": "Toyota Motor Corp",
+      "asset_class": "EQUITY",
+      "currency_code": "JPY"
+    }
+  ],
+  "position": [
+    {
+      "position_id": "POS-001",
+      "book_id": "BOOK-EQ",
+      "instrument_id": "INST-001",
+      "as_of_date": "2026-06-18",
+      "quantity": "600",
+      "market_value": "118080.00",
+      "currency_code": "USD"
+    },
+    {
+      "position_id": "POS-002",
+      "book_id": "BOOK-EQ",
+      "instrument_id": "INST-002",
+      "as_of_date": "2026-06-18",
+      "quantity": "-800",
+      "market_value": "-336080.00",
+      "currency_code": "USD"
+    },
+    {
+      "position_id": "POS-003",
+      "book_id": "BOOK-EQ",
+      "instrument_id": "INST-003",
+      "as_of_date": "2026-06-18",
+      "quantity": "2000",
+      "market_value": "24600.00",
+      "currency_code": "EUR"
+    },
+    {
+      "position_id": "POS-004",
+      "book_id": "BOOK-FI",
+      "instrument_id": "INST-004",
+      "as_of_date": "2026-06-18",
+      "quantity": "250",
+      "market_value": "24775.00",
+      "currency_code": "USD"
+    },
+    {
+      "position_id": "POS-005",
+      "book_id": "BOOK-FI",
+      "instrument_id": "INST-005",
+      "as_of_date": "2026-06-18",
+      "quantity": "1500",
+      "market_value": "151800.00",
+      "currency_code": "GBP"
+    },
+    {
+      "position_id": "POS-006",
+      "book_id": "BOOK-EQ",
+      "instrument_id": "INST-006",
+      "as_of_date": "2026-06-18",
+      "quantity": "300",
+      "market_value": "735000.00",
+      "currency_code": "JPY"
+    }
+  ],
+  "trade": [
+    {
+      "trade_id": "TRD-1001",
+      "trade_date": "2026-06-15",
+      "instrument_id": "INST-001",
+      "counterparty_id": "CP-001",
+      "side": "BUY",
+      "quantity": "1000",
+      "price": "195.40",
+      "notional": "195400.00",
+      "currency_code": "USD",
+      "trader_id": "TRADER-AB"
+    },
+    {
+      "trade_id": "TRD-1002",
+      "trade_date": "2026-06-15",
+      "instrument_id": "INST-004",
+      "counterparty_id": "CP-002",
+      "side": "SELL",
+      "quantity": "500",
+      "price": "98.75",
+      "notional": "49375.00",
+      "currency_code": "USD",
+      "trader_id": "TRADER-CD"
+    },
+    {
+      "trade_id": "TRD-1003",
+      "trade_date": "2026-06-16",
+      "instrument_id": "INST-003",
+      "counterparty_id": "CP-003",
+      "side": "BUY",
+      "quantity": "2000",
+      "price": "12.30",
+      "notional": "24600.00",
+      "currency_code": "EUR",
+      "trader_id": "TRADER-AB"
+    },
+    {
+      "trade_id": "TRD-1004",
+      "trade_date": "2026-06-16",
+      "instrument_id": "INST-006",
+      "counterparty_id": "CP-004",
+      "side": "BUY",
+      "quantity": "300",
+      "price": "2450.00",
+      "notional": "735000.00",
+      "currency_code": "JPY",
+      "trader_id": "TRADER-EF"
+    },
+    {
+      "trade_id": "TRD-1005",
+      "trade_date": "2026-06-16",
+      "instrument_id": "INST-002",
+      "counterparty_id": "CP-005",
+      "side": "SELL",
+      "quantity": "800",
+      "price": "420.10",
+      "notional": "336080.00",
+      "currency_code": "USD",
+      "trader_id": "TRADER-CD"
+    },
+    {
+      "trade_id": "TRD-1006",
+      "trade_date": "2026-06-17",
+      "instrument_id": "INST-005",
+      "counterparty_id": "CP-002",
+      "side": "BUY",
+      "quantity": "1500",
+      "price": "101.20",
+      "notional": "151800.00",
+      "currency_code": "GBP",
+      "trader_id": "TRADER-GH"
+    },
+    {
+      "trade_id": "TRD-1007",
+      "trade_date": "2026-06-17",
+      "instrument_id": "INST-001",
+      "counterparty_id": "CP-001",
+      "side": "SELL",
+      "quantity": "400",
+      "price": "196.80",
+      "notional": "78720.00",
+      "currency_code": "USD",
+      "trader_id": "TRADER-AB"
+    },
+    {
+      "trade_id": "TRD-1008",
+      "trade_date": "2026-06-18",
+      "instrument_id": "INST-004",
+      "counterparty_id": "CP-001",
+      "side": "BUY",
+      "quantity": "250",
+      "price": "99.10",
+      "notional": "24775.00",
+      "currency_code": "USD",
+      "trader_id": "TRADER-GH"
+    }
+  ]
+}
