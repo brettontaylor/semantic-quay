@@ -3,6 +3,7 @@
 import catalog from "./catalog.json";
 import accessPolicy from "./access.json";
 import datasetJson from "./dataset.json";
+import registryJson from "./registry.json";
 
 export type Classification = "public" | "internal" | "confidential" | "restricted";
 
@@ -73,6 +74,32 @@ export const dataset = datasetJson as unknown as Record<string, Record<string, s
 export const catalogIndex = cat.index;
 export const products = cat.products;
 export const roles = policy.roles;
+
+// --- model registry ---
+export type ModelKind = "bdm" | "pdm" | "semantic";
+export interface RegistryModel {
+  id: string;
+  kind: ModelKind;
+  version: string;
+  status: string;
+  owner?: string | null;
+  upstream?: string | null;
+  dependsOn: string[];
+  signature: string;
+  detail: Record<string, unknown>;
+}
+export interface Registry {
+  standardVersion: string;
+  counts: Record<string, number>;
+  models: RegistryModel[];
+}
+export const registry = registryJson as unknown as Registry;
+export function listModels(): RegistryModel[] {
+  return registry.models;
+}
+export function getModel(id: string): RegistryModel | undefined {
+  return registry.models.find((m) => m.id === id);
+}
 
 export function listProducts(): DataProduct[] {
   return cat.index.products

@@ -47,6 +47,12 @@ const policy = JSON.parse(
 );
 writeFileSync(join(outDir, "access.json"), JSON.stringify(policy, null, 2) + "\n");
 
+// --- model registry ---
+const registry = JSON.parse(
+  readFileSync(join(ref, "generated", "registry", "registry.json"), "utf8"),
+);
+writeFileSync(join(outDir, "registry.json"), JSON.stringify(registry, null, 2) + "\n");
+
 // --- sample dataset (parse the toolkit's example CSVs) ---
 function parseCsv(text) {
   const lines = text.trim().split(/\r?\n/);
@@ -94,5 +100,6 @@ writeFileSync(join(outDir, "dataset.json"), JSON.stringify(dataset, null, 2) + "
 
 console.log(
   `✓ synced catalog (${Object.keys(products).length} products), access policy ` +
-    `(${policy.roles.length} roles), dataset (${Object.keys(dataset).length} entities) → ${outDir.replace(root, ".")}`,
+    `(${policy.roles.length} roles), registry (${registry.models.length} models), ` +
+    `dataset (${Object.keys(dataset).length} entities) → ${outDir.replace(root, ".")}`,
 );

@@ -43,9 +43,9 @@ export default function Developers() {
         <div className="mx-auto max-w-6xl px-6 py-16 md:px-10 md:py-20">
           <p className="eyebrow">Explore</p>
           <h2 className="font-display mt-4 text-3xl font-medium tracking-tight text-ink md:text-4xl">
-            Four ways in — all access-governed.
+            Five ways in — versioned and access-governed.
           </h2>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {demos.map((d) => (
               <Link
                 key={d.href}
@@ -241,6 +241,11 @@ const components = [
 const chain = ["BDM / PDM", "Contract", "Databricks", "Cube", "Snowflake"];
 
 const demos = [
+  {
+    href: "/developers/registry",
+    title: "Model registry",
+    body: "Versioned BDMs, PDMs & semantic models, governed by semver.",
+  },
   {
     href: "/developers/model",
     title: "Data model",
