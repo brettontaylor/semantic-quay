@@ -1,26 +1,69 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+  Semantic Quay — brand tokens.
+  Metaphor: a quay (the waterfront edge where value docks and moves) +
+  semantic modeling (nodes & edges). Quiet authority, infrastructure-grade.
+*/
+@theme {
+  /* Color */
+  --color-ink: #0d1b2a; /* harbor night — primary text / dark sections */
+  --color-ink-soft: #16283a;
+  --color-paper: #f6f4ef; /* warm paper — primary background */
+  --color-paper-soft: #efece3;
+  --color-accent: #15756b; /* quay teal */
+  --color-accent-bright: #3aa697; /* teal on dark */
+  --color-brass: #b5893f; /* sparing warm highlight */
+  --color-muted: #59636f; /* secondary text */
+  --color-line: rgba(13, 27, 42, 0.12);
+  --color-line-bright: rgba(246, 244, 239, 0.16);
+
+  /* Type */
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Editorial display headings */
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+}
+
+/* Eyebrow / label — mono, tracked-out, small caps feel */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* Thin rule used as a "quay line" */
+.quay-rule {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-line) 12%,
+    var(--color-line) 88%,
+    transparent
+  );
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-paper);
 }
